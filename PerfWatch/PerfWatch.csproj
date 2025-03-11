@@ -28,10 +28,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Condition="$(DefineConstants.Contains(ENABLE_XAML_HOT_RELOAD))" Include="Avalonia.Markup.Xaml.Loader" Version="11.2.4" />
-        <PackageReference Condition="$(DefineConstants.Contains(ENABLE_XAML_HOT_RELOAD))" Include="HotAvalonia" Version="2.1.0" />
-        <PackageReference Include="HotAvalonia.Extensions" Version="2.1.0" PrivateAssets="All" />
-        <PackageReference Include="SukiUI" Version="6.0.0" />
-        <PackageReference Include="System.Text.Json" Version="9.0.2" />
+        <PackageReference Condition="$(DefineConstants.Contains(ENABLE_XAML_HOT_RELOAD))" Include="Avalonia.Markup.Xaml.Loader" />
+        <PackageReference Condition="$(DefineConstants.Contains(ENABLE_XAML_HOT_RELOAD))" Include="HotAvalonia" />
+        <PackageReference Include="HotAvalonia.Extensions" PrivateAssets="All" />
+        <PackageReference Include="SukiUI" />
+        <PackageReference Include="System.Text.Json" />
     </ItemGroup>
 </Project>
