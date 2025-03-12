@@ -1,12 +1,14 @@
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using System;
+using Avalonia.Controls;
+using PerfWatch.Views;
 
 namespace PerfWatch.ViewModels;
 
-public partial class ShellViewModel : ViewModelBase
+internal partial class ShellViewModel : ViewModelBase
 {
-    [ObservableProperty] private ViewModelBase? _currentViewModel;
+    [ObservableProperty] private UserControl? _currentView;
 
     public ShellViewModel()
     {
@@ -16,18 +18,18 @@ public partial class ShellViewModel : ViewModelBase
 
     private void LoginSuccessed(object recipient, object message)
     {
-        CurrentViewModel = new MainViewModel();
+        CurrentView = new MainView() { DataContext = new MainViewModel() };
     }
 
     private void ShellViewLoaded<TMessage>(object recipient, TMessage message) where TMessage : class
     {
         if (!GlobalCache.Instance.HasLogined)
         {
-            CurrentViewModel = new LoginViewModel();
+            CurrentView = new LoginView() { DataContext = new LoginViewModel() };
         }
         else
         {
-            CurrentViewModel = new MainViewModel();
+            CurrentView = new MainView() { DataContext = new MainViewModel() };
         }
     }
 }

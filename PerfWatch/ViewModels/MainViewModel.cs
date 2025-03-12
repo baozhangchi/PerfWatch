@@ -1,5 +1,5 @@
 ﻿namespace PerfWatch.ViewModels;
 
-public partial class MainViewModel : ViewModelBase
+internal partial class MainViewModel : ViewModelBase
 {
 }

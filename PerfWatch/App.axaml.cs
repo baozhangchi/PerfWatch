@@ -14,9 +14,13 @@ public partial class App : Application
 {
     public override void Initialize()
     {
-#if ENABLE_XAML_HOT_RELOAD
+#if ENABLE_XAML_HOT_RELOAD && dotnet
         this.EnableHotReload();
 #endif
+        
+        #if DEBUG
+        this.EnableHotReload();
+        #endif
         AvaloniaXamlLoader.Load(this);
     }
 
@@ -24,8 +28,7 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
-            // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
+            // Avoid duplicate validations from both Avalonia and the CommunityToolkit. More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
             DisableAvaloniaDataAnnotationValidation();
             desktop.MainWindow = new ShellWindow
             {

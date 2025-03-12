@@ -4,7 +4,7 @@ using CommunityToolkit.Mvvm.Messaging;
 
 namespace PerfWatch.ViewModels;
 
-public partial class LoginViewModel : ViewModelBase
+internal partial class LoginViewModel : ViewModelBase
 {
     [ObservableProperty]
     private string? _username;

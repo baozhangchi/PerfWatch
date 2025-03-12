@@ -1,8 +1,60 @@
-﻿<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="PerfWatch.Views.MainView">
-    Welcome to Avalonia!
+﻿<UserControl
+    x:Class="PerfWatch.Views.MainView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:suki="https://github.com/kikipoulet/SukiUI"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="clr-namespace:PerfWatch.Views"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Grid>
+        <suki:SukiSideMenu>
+            <suki:SukiSideMenu.Items>
+                <!-- Menu Items -->
+                <suki:SukiSideMenuItem Header="监控大屏">
+                    <!-- <suki:SukiMenuItem.Icon> -->
+                    <!--     <Image Source="Assets/monitor.png" /> -->
+                    <!-- </suki:SukiMenuItem.Icon>    -->
+                    <suki:SukiSideMenuItem.PageContent>
+                        <views:HomeView />
+                    </suki:SukiSideMenuItem.PageContent>
+                </suki:SukiSideMenuItem>
+                <suki:SukiSideMenuItem Header="状态监控">
+                    <!-- <suki:SukiMenuItem.Icon> -->
+                    <!--     <Image Source="Assets/monitor.png" /> -->
+                    <!-- </suki:SukiMenuItem.Icon>    -->
+                    <suki:SukiSideMenuItem.PageContent>
+                        <views:StatusMonitorView />
+                    </suki:SukiSideMenuItem.PageContent>
+                </suki:SukiSideMenuItem>
+                <suki:SukiSideMenuItem Header="参数设置">
+                    <!-- <suki:SukiMenuItem.Icon> -->
+                    <!--     <Image Source="Assets/monitor.png" /> -->
+                    <!-- </suki:SukiMenuItem.Icon>    -->
+                    <suki:SukiSideMenuItem.PageContent>
+                        <views:ParametersView></views:ParametersView>
+                    </suki:SukiSideMenuItem.PageContent>
+                </suki:SukiSideMenuItem>
+                <suki:SukiSideMenuItem Header="系统维护">
+                    <!-- <suki:SukiMenuItem.Icon> -->
+                    <!--     <Image Source="Assets/monitor.png" /> -->
+                    <!-- </suki:SukiMenuItem.Icon>    -->
+                    <suki:SukiSideMenuItem.PageContent>
+                        <views:SystemMaintenanceView />
+                    </suki:SukiSideMenuItem.PageContent>
+                </suki:SukiSideMenuItem>
+            </suki:SukiSideMenu.Items>
+            <suki:SukiSideMenu.HeaderContent>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="运维监控管理平台"></TextBlock>
+                </StackPanel>
+            </suki:SukiSideMenu.HeaderContent>
+
+            <suki:SukiSideMenu.FooterContent>
+                <!-- Footer Content -->
+            </suki:SukiSideMenu.FooterContent>
+        </suki:SukiSideMenu>
+    </Grid>
 </UserControl>

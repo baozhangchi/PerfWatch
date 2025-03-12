@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net9.0</TargetFramework>
+		<TargetFrameworks>net9.0</TargetFrameworks>
 		<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>
 		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
@@ -31,6 +31,7 @@
 		<PackageReference Condition="$(DefineConstants.Contains(ENABLE_XAML_HOT_RELOAD))" Include="Avalonia.Markup.Xaml.Loader" />
 		<PackageReference Condition="$(DefineConstants.Contains(ENABLE_XAML_HOT_RELOAD))" Include="HotAvalonia" />
 		<PackageReference Include="HotAvalonia.Extensions" PrivateAssets="All" />
+		<PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" />
 		<PackageReference Include="SukiUI" />
 		<PackageReference Include="System.Text.Json" />
 	</ItemGroup>
