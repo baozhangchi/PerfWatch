@@ -1,0 +1,36 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:PerfWatch.Components">
+    <Design.PreviewWith>
+        <controls:TileView />
+    </Design.PreviewWith>
+
+    <Style Selector="controls|TileView">
+        <Setter Property="Columns" Value="4"></Setter>
+        <Setter Property="Rows" Value="4"></Setter>
+        <!-- Set Defaults -->
+        <Setter Property="Template">
+            <ControlTemplate>
+                <DockPanel>
+                    <ScrollViewer>
+                        <ItemsControl x:Name="PART_ItemsHost" ItemsSource="{TemplateBinding ActivatedItems}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" x:Name="PART_ItemsPanel"
+                                               ItemWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=controls:TileView},Path=ItemWidth,Mode=OneWay}"
+                                               ItemHeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=controls:TileView},Path=ItemHeight,Mode=OneWay}">
+                                    </WrapPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate >
+                                    
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </DockPanel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

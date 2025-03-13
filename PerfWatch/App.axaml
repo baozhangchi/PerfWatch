@@ -12,6 +12,7 @@
 
     <Application.Styles>
         <FluentTheme />
+        <StyleInclude Source="avares://PerfWatch/Components/TileView.axaml"></StyleInclude>
         <suki:SukiTheme Locale="zh-CN" ThemeColor="Blue" />
     </Application.Styles>
 </Application>

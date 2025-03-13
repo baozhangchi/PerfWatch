@@ -5,11 +5,23 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="clr-namespace:PerfWatch.ViewModels"
              xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             xmlns:components="clr-namespace:PerfWatch.Components"
              x:Class="PerfWatch.Views.HomeView">
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
          to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:HomeViewModel />
     </Design.DataContext>
-    监控大屏
+    <components:TileView>
+        <suki:GroupBox Header="CPU Usage">
+            <lvc:CartesianChart />
+        </suki:GroupBox>
+        <suki:GroupBox Header="RAM Usage">
+            <lvc:CartesianChart />
+        </suki:GroupBox>
+        <suki:GroupBox Header="Network Usage">
+            <lvc:CartesianChart />
+        </suki:GroupBox>
+    </components:TileView>
 </UserControl>

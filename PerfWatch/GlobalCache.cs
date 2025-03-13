@@ -7,5 +7,5 @@ public class GlobalCache
     }
 
     public static GlobalCache Instance { get; } = new GlobalCache();
-    public bool HasLogined { get; internal set; }
+    public bool HasLogined { get; internal set; } = true;
 }
