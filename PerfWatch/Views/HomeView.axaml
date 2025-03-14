@@ -1,27 +1,35 @@
-﻿<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             xmlns:vm="clr-namespace:PerfWatch.ViewModels"
-             xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
-             xmlns:suki="https://github.com/kikipoulet/SukiUI"
-             xmlns:components="clr-namespace:PerfWatch.Components"
-             x:Class="PerfWatch.Views.HomeView">
+﻿<UserControl
+    x:Class="PerfWatch.Views.HomeView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:components="clr-namespace:PerfWatch.Components"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:suki="https://github.com/kikipoulet/SukiUI"
+    xmlns:vm="clr-namespace:PerfWatch.ViewModels"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
     <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <!--
+            This only sets the DataContext for the previewer in an IDE,
+            to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs)
+        -->
         <vm:HomeViewModel />
     </Design.DataContext>
     <components:TileView>
         <suki:GroupBox Header="CPU Usage">
-            <lvc:CartesianChart />
+            <!--<lvc:CartesianChart />-->
+            <TextBlock Text="CPU" />
         </suki:GroupBox>
         <suki:GroupBox Header="RAM Usage">
-            <lvc:CartesianChart />
+            <!--<lvc:CartesianChart />-->
+            <TextBlock Text="RAM" />
         </suki:GroupBox>
         <suki:GroupBox Header="Network Usage">
-            <lvc:CartesianChart />
+            <!--<lvc:CartesianChart />-->
+            <TextBlock Text="Network" />
         </suki:GroupBox>
     </components:TileView>
 </UserControl>
