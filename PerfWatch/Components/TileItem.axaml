@@ -3,48 +3,39 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:PerfWatch.Components">
     <Design.PreviewWith>
-        <controls:TileView />
+        <controls:TileItem />
     </Design.PreviewWith>
 
     <Style Selector="controls|TileItem">
-        <Setter Property="Columns" Value="4" />
-        <Setter Property="Rows" Value="4" />
+        <Setter Property="Padding" Value="10" />
         <!--  Set Defaults  -->
         <Setter Property="Template">
             <ControlTemplate>
-                <Border
-                    Name="PART_Border"
-                    Width="{TemplateBinding CurrentWidth}"
-                    Height="{TemplateBinding CurrentHeight}"
-                    Background="{TemplateBinding Background}">
+                <Border Name="PART_Border" Background="{TemplateBinding Background}">
                     <Grid>
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        <Grid
+                        <ContentPresenter
+                            Margin="{TemplateBinding Padding}"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Content="{TemplateBinding Content}" />
+                        <StackPanel
                             Name="PART_ControlPanel"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Top"
-                            Visibility="Collapsed">
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
+                            Orientation="Horizontal">
                             <Button
                                 Name="PART_ZoomInButton"
                                 Grid.Row="0"
-                                Click="ZoomInButton_Click"
                                 Content="+" />
                             <Button
                                 Name="PART_RestoreButton"
                                 Grid.Row="1"
-                                Click="RestoreButton_Click"
                                 Content="=" />
                             <Button
                                 Name="PART_CloseButton"
                                 Grid.Row="2"
-                                Click="CloseButton_Click"
                                 Content="X" />
-                        </Grid>
+                        </StackPanel>
                     </Grid>
                 </Border>
             </ControlTemplate>

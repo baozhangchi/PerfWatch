@@ -14,23 +14,13 @@
             <ControlTemplate>
                 <DockPanel>
                     <ScrollViewer>
-                        <ItemsControl x:Name="PART_ItemsHost" ItemsSource="{TemplateBinding ActivatedItems}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel
-                                        x:Name="PART_ItemsPanel"
-                                        ItemHeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=controls:TileView}, Path=ItemHeight, Mode=OneWay}"
-                                        ItemWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=controls:TileView}, Path=ItemWidth, Mode=OneWay}"
-                                        Orientation="Horizontal" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="Hello" />
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                        <WrapPanel
+                            x:Name="PART_ItemsPanel"
+                            ItemHeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=controls:TileView}, Path=ItemHeight, Mode=OneWay}"
+                            ItemWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=controls:TileView}, Path=ItemWidth, Mode=OneWay}"
+                            Orientation="Horizontal" />
                     </ScrollViewer>
+                    <ContentPresenter x:Key="PART_LargeItem" DockPanel.Dock="Left" />
                 </DockPanel>
             </ControlTemplate>
         </Setter>

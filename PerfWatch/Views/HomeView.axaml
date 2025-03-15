@@ -19,10 +19,7 @@
         <vm:HomeViewModel />
     </Design.DataContext>
     <components:TileView>
-        <suki:GroupBox Header="CPU Usage">
-            <!--<lvc:CartesianChart />-->
-            <TextBlock Text="CPU" />
-        </suki:GroupBox>
+        <TextBlock Text="CPU" />
         <suki:GroupBox Header="RAM Usage">
             <!--<lvc:CartesianChart />-->
             <TextBlock Text="RAM" />
