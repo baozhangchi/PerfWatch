@@ -12,31 +12,11 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Border Name="PART_Border" Background="{TemplateBinding Background}">
-                    <Grid>
-                        <ContentPresenter
-                            Margin="{TemplateBinding Padding}"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            Content="{TemplateBinding Content}" />
-                        <StackPanel
-                            Name="PART_ControlPanel"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Top"
-                            Orientation="Horizontal">
-                            <Button
-                                Name="PART_ZoomInButton"
-                                Grid.Row="0"
-                                Content="+" />
-                            <Button
-                                Name="PART_RestoreButton"
-                                Grid.Row="1"
-                                Content="=" />
-                            <Button
-                                Name="PART_CloseButton"
-                                Grid.Row="2"
-                                Content="X" />
-                        </StackPanel>
-                    </Grid>
+                    <ContentPresenter
+                        Margin="{TemplateBinding Padding}"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Content="{TemplateBinding Content}" />
                 </Border>
             </ControlTemplate>
         </Setter>

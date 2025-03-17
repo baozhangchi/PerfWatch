@@ -1,4 +1,4 @@
-﻿<Styles
+<Styles
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:PerfWatch.Components">
@@ -12,16 +12,18 @@
         <!--  Set Defaults  -->
         <Setter Property="Template">
             <ControlTemplate>
-                <DockPanel>
-                    <ScrollViewer>
+                <Grid ColumnDefinitions="3* *">
+                    <ContentControl Grid.Column="0" Grid.ColumnSpan="2" x:DataType="controls:TileItem"
+                                    x:Name="PART_PreviewItemHost"
+                                    Content="{TemplateBinding ActivatedItem}" IsVisible="False" />
+                    <ScrollViewer Grid.Column="0" Grid.ColumnSpan="2" x:Name="PART_ItemsHost">
                         <WrapPanel
                             x:Name="PART_ItemsPanel"
                             ItemHeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=controls:TileView}, Path=ItemHeight, Mode=OneWay}"
                             ItemWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=controls:TileView}, Path=ItemWidth, Mode=OneWay}"
                             Orientation="Horizontal" />
                     </ScrollViewer>
-                    <ContentPresenter x:Key="PART_LargeItem" DockPanel.Dock="Left" />
-                </DockPanel>
+                </Grid>
             </ControlTemplate>
         </Setter>
     </Style>

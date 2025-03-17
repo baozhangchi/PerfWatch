@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,6 +6,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
 using Avalonia.Metadata;
@@ -30,52 +31,26 @@ public class TileView : TemplatedControl
         AvaloniaProperty.Register<TileView, IEnumerable>(
             nameof(ItemsSource));
 
-    public static readonly StyledProperty<object?> ActivatedItemProperty = AvaloniaProperty.Register<TileView, object?>(
-        nameof(ActivatedItem));
+    public static readonly StyledProperty<TileItem?> ActivatedItemProperty =
+        AvaloniaProperty.Register<TileView, TileItem?>(
+            nameof(ActivatedItem));
 
-    private WrapPanel? _itemsHost;
-
-    public ObservableCollection<object> ActivatedItems { get; } = new ObservableCollection<object>();
-
-    private readonly IDictionary<object, TileItem> _items = new Dictionary<object, TileItem>();
+    private WrapPanel? _itemsHostPanel;
+    private ContentControl? _previewItemHost;
+    private ScrollViewer? _itemsHost;
 
     public TileView()
     {
         Items.CollectionChanged += Items_CollectionChanged;
-
-        ActivatedItems.CollectionChanged += ActivatedItems_CollectionChanged;
     }
 
     private void Items_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
-        switch (e.Action)
-        {
-            case NotifyCollectionChangedAction.Add:
-                foreach (var item in e.NewItems!)
-                {
-                    ActivatedItems.Add(item);
-                }
-                break;
-
-            case NotifyCollectionChangedAction.Remove:
-                foreach (var item in e.OldItems!)
-                {
-                    ActivatedItems.Remove(item);
-                }
-                break;
-
-            case NotifyCollectionChangedAction.Reset:
-                ActivatedItems.Clear();
-                break;
-        }
-    }
-
-    private void ActivatedItems_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
-    {
-        if (_itemsHost == null)
+        if (_itemsHostPanel == null)
         {
             return;
         }
+
         switch (e.Action)
         {
             case NotifyCollectionChangedAction.Add:
@@ -83,32 +58,82 @@ public class TileView : TemplatedControl
                 {
                     var tileItem = new TileItem() { Content = item };
                     tileItem.Click += TileItem_Click;
-                    _items.Add(item, tileItem);
-                    _itemsHost?.Children.Add(tileItem);
+                    _itemsHostPanel.Children.Add(tileItem);
                 }
+
                 break;
 
             case NotifyCollectionChangedAction.Remove:
                 foreach (var item in e.OldItems!)
                 {
-                    if (_items.TryGetValue(item, out var tileItem))
+                    if (ActivatedItem != null && ActivatedItem == item)
                     {
-                        tileItem.Click -= TileItem_Click;
-                        _items.Remove(item);
-                        _itemsHost?.Children.Remove(tileItem);
+                        ActivatedItem = null;
+                    }
+                    else
+                    {
+                        foreach (var activatedItem in _itemsHostPanel.Children)
+                        {
+                            if (activatedItem == item)
+                            {
+                                _itemsHostPanel.Children.Remove(activatedItem);
+                                break;
+                            }
+                        }
                     }
                 }
+
                 break;
 
             case NotifyCollectionChangedAction.Reset:
-                _items.Clear();
-                _itemsHost?.Children.Clear();
+                _itemsHostPanel.Children.Clear();
+                ActivatedItem = null;
                 break;
         }
     }
 
     private void TileItem_Click(object? sender, EventArgs e)
     {
+        if (_itemsHostPanel == null)
+        {
+            return;
+        }
+
+        if (sender is TileItem tileItem)
+        {
+            if (Equals(ActivatedItem, tileItem))
+            {
+                ActivatedItem = null;
+                AddToItemsHostPanel(tileItem);
+            }
+            else
+            {
+                var oldValue = ActivatedItem;
+                ActivatedItem = null;
+                if (oldValue != null)
+                {
+                    AddToItemsHostPanel(oldValue);
+                }
+                _itemsHostPanel.Children.Remove(tileItem);
+                ActivatedItem = tileItem;
+            }
+
+            if (_previewItemHost != null)
+            {
+                _previewItemHost.IsVisible = ActivatedItem != null;
+            }
+
+            Grid.SetColumn(_itemsHost, ActivatedItem == null ? 0 : 1);
+            Grid.SetColumnSpan(_itemsHost, ActivatedItem == null ? 2 : 1);
+        }
+
+        return;
+
+        void AddToItemsHostPanel(TileItem item)
+        {
+            var index = Items.IndexOf(item.Content!);
+            _itemsHostPanel.Children.Insert(index, item);
+        }
     }
 
     protected override Type StyleKeyOverride { get; } = typeof(TileView);
@@ -145,7 +170,7 @@ public class TileView : TemplatedControl
 
     [Content] public ObservableCollection<object> Items { get; } = new();
 
-    public object? ActivatedItem
+    public TileItem? ActivatedItem
     {
         get => GetValue(ActivatedItemProperty);
         set => SetValue(ActivatedItemProperty, value);
@@ -180,19 +205,19 @@ public class TileView : TemplatedControl
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
-        _itemsHost = e.NameScope.Find<WrapPanel>("PART_ItemsPanel");
-        if (_itemsHost != null)
+        _itemsHost = e.NameScope.Find<ScrollViewer>("PART_ItemsHost");
+        _itemsHostPanel = e.NameScope.Find<WrapPanel>("PART_ItemsPanel");
+        _previewItemHost = e.NameScope.Find<ContentControl>("PART_PreviewItemHost");
+        if (_itemsHostPanel != null)
         {
-            _itemsHost.Children.Clear();
-            _items.Clear();
-            if (ActivatedItems.Any())
+            _itemsHostPanel.Children.Clear();
+            if (Items.Any())
             {
-                foreach (var item in ActivatedItems)
+                foreach (var item in Items)
                 {
                     var tileItem = new TileItem() { Content = item };
                     tileItem.Click += TileItem_Click;
-                    _items.Add(item, tileItem);
-                    _itemsHost?.Children.Add(tileItem);
+                    _itemsHostPanel?.Children.Add(tileItem);
                 }
             }
         }
